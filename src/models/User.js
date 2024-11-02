@@ -51,6 +51,13 @@ UserSchema.methods.ValidatePassword = async function (UserInputPassword) {
   return isPasswordValid;
 };
 
+UserSchema.methods.PasswordExists = async function (oldPassword) {
+  const user = this;
+  const isPasswordExists = await bcrypt.compare(oldPassword, user.password);
+  return isPasswordExists;
+};
+
+
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;

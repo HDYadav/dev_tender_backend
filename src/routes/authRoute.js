@@ -27,16 +27,17 @@ authRoute.post("/signup", async (req, res) => {
 });
 
 authRoute.post("/login", async (req, res) => {
-  try {
-    const { emailId, password } = req.body; // Fixed typo from passsword to password
+  try { 
+     
+    const { emailId, password } = req.body;  
 
-    const user = await User.findOne({ emailId: emailId }); // Added await
+    const user = await User.findOne({ emailId: emailId });  
 
     if (!user) {
       throw new Error("Username or password mismatch");
     }
 
-    const response = await user.ValidatePassword(password); // Added await and fixed typo
+    const response = await user.ValidatePassword(password);  
 
     if (response) {
       const token = await user.getJWT();
@@ -50,6 +51,9 @@ authRoute.post("/login", async (req, res) => {
     res.status(400).send("Login Error: " + error.message);
   }
 });
+
+
+
 
 authRoute.post("/logout", async (req, res) => {
 
